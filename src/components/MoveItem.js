@@ -7,85 +7,83 @@ import { useRouter } from "next/router";
 
 import { v4 as uuidv4 } from "uuid";
 import Moveable from "react-moveable";
+import $ from "jquery";
 
 const MoveContainer = styled.div`
-  position: relative;
-  border: 1px solid white;
+  position: absolute;
 `;
 
-export default function websiteMaker() {
-const [uid] = useState(uuidv4();)
-  const [ready, setReady] = useState(false);
-  const [config, setConfig] = useState({ list: [] });
-  const router = useRouter();
-  const { pathname } = router;
+export default function websiteMaker(props) {
+  const { data = {}, onChange = () => {} } = props;
+  const {
+    src = "",
+    style = { left: 0, top: 0 },
+    key = uuidv4(),
+    mode = "",
+  } = data;
 
-  const { list = [] } = config;
-
-  const [style, setStyle] = useState({
-    position: "absolute",
-    top: 10,
-    left: 10,
-    // height: 20,
-    // width: 20,
-    backgroundColor: "red",
-    zIndex: 9999,
-  });
-  const [el, setEl] = useState(null);
-
+  const [el, setEl] = useState([]);
+  const [show, setShow] = useState(false);
   useEffect(() => {
-    const historyConfig = JSON.parse(localStorage.getItem(pathname)) || {};
-    setConfig(historyConfig);
+    const t = document.querySelector(`.item-${key}`);
+    const c = document.querySelector(`.move-container`);
+    if (t && c) {
+      setEl([t, c]);
+    }
   }, []);
 
-  useEffect(() => {
-    setEl(document.querySelector(".target"));
-  }, []);
+  function onDrag(pos) {
+    const { left: l, top: t, width: w, height: h } = pos;
+    const { width: cw, height: ch } = el?.[1]?.getBoundingClientRect();
 
-  function onChangeConfig(key, value) {
-    const clone = { ...config };
-    const temp = _.set(clone, key, value);
-    setConfig(temp);
-    localStorage.setItem(pathname, JSON.stringify(temp));
+    const left = (l / cw) * 100;
+    const top = (t / ch) * 100;
+
+    const elLeft = left > 100 ? 100 : left;
+    const elTop = top > 100 ? 100 : top;
+
+    onChange({
+      ...data,
+      style: { ...style, left: `${elLeft}%`, top: `${elTop}%` },
+    });
   }
+
+  function onResize(pos) {
+    const { left: l, top: t, width: w, height: h } = pos;
+    const { width: cw, height: ch } = el?.[1]?.getBoundingClientRect();
+
+    const width = (w / cw) * 100;
+    const height = (h / ch) * 100;
+
+    onChange({
+      ...data,
+      style: { ...style, width: `${width}%`, height: `${height}%` },
+    });
+  }
+
+  const isReady = el?.[0] && el?.[1];
 
   return (
     <>
-      <h2 className="title">Website Maker</h2>
-      <MoveContainer>
-        <div className="target" style={style}>
-          123
-        </div>
-      </MoveContainer>
+      <div
+        className={`item-${key}`}
+        style={style}
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
+      >
+        {mode === "pic" && <img src={data.src} alt="" />}
+      </div>
 
-      {el && (
+      {isReady && (
         <Moveable
-          target={el}
-          container={null}
-          origin={true}
-          draggable={true}
-          onDrag={({
-            target,
-            beforeDelta,
-            beforeDist,
-            left,
-            top,
-            right,
-            bottom,
-            delta,
-            dist,
-            transform,
-            clientX,
-            clientY,
-          }) => {
-            // console.log("onDrag left, top", left, top);
-            // // target!.style.left = `${left}px`;
-            // // target!.style.top = `${top}px`;
-            // console.log("onDrag translate", dist);
-            // target!.style.transform = transform;
-            console.log(left, top);
-            setStyle({ ...style, left, top });
-          }}
+          target={el[0]}
+          // container={el[1]}
+          origin
+          draggable
+          resizable
+          onDrag={onDrag}
+          onResize={onResize}
+          keepRatio
         />
       )}
     </>
