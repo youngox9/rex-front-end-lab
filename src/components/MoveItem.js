@@ -9,11 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import Moveable from "react-moveable";
 import $ from "jquery";
 
-const MoveContainer = styled.div`
-  position: absolute;
-`;
-
-export default function websiteMaker(props) {
+export default function MoveItem(props) {
   const { data = {}, onChange = () => {} } = props;
   const {
     src = "",
