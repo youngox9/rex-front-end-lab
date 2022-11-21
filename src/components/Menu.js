@@ -84,7 +84,7 @@ export default function Layout(props) {
           <MenuLink href="/normal/list">列表比對工具</MenuLink>
           <MenuLink href="/normal/">Html embed</MenuLink>
           <MenuLink href="/normal/font">Font</MenuLink>
-          <MenuLink href="/normal/unicode">Unicode</MenuLink>
+          {/* <MenuLink href="/normal/unicode">Unicode</MenuLink> */}
           <MenuLink href="/normal/cssVariables">CSS Variables</MenuLink>
           <MenuLink href="/normal/portalTest">Portal Test</MenuLink>
           {/* <MenuLink href="/normal/websiteMaker">Website Maker</MenuLink> */}
