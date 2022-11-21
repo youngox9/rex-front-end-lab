@@ -123,8 +123,8 @@ export default function IndexPage(props) {
         <Checkbox
           className="form-check-input"
           type="checkbox"
-          checked={data.uniq}
-          onChange={() => setData({ ...data, uniq: !data.uniq })}
+          checked={data?.uniq}
+          onChange={() => setData({ ...data, uniq: !data?.uniq })}
           id="flexCheckDefault"
         >
           去除重複
@@ -132,8 +132,8 @@ export default function IndexPage(props) {
         <Checkbox
           className="form-check-input"
           type="checkbox"
-          checked={data.symbol}
-          onChange={() => setData({ ...data, symbol: !data.symbol })}
+          checked={data?.symbol}
+          onChange={() => setData({ ...data, symbol: !data?.symbol })}
           id="flexCheckDefault"
         >
           去除特殊字元
@@ -152,7 +152,7 @@ export default function IndexPage(props) {
           </h4>
           <textarea
             className="form-control"
-            value={data.a_str}
+            value={data?.a_str}
             onChange={(e) => setData({ ...data, a_str: e.target.value })}
           />
         </Col>
@@ -167,7 +167,7 @@ export default function IndexPage(props) {
           </h4>
           <textarea
             className="form-control"
-            value={data.b_str}
+            value={data?.b_str}
             onChange={(e) => setData({ ...data, b_str: e.target.value })}
           />
         </Col>
@@ -254,7 +254,7 @@ export default function IndexPage(props) {
               type="number"
               className="form-control"
               placeholder="抽樣數"
-              value={data.randomCount}
+              value={data?.randomCount}
               onChange={(val) => setData({ ...data, randomCount: val })}
             />
             <Button
