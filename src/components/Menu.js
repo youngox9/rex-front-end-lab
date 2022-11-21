@@ -81,6 +81,7 @@ export default function Layout(props) {
       <div className="menu-container">
         {/* <MenuItem title="Gallery" href="/gallery"></MenuItem> */}
         <MenuItem title="Normal">
+          <MenuLink href="/normal/list">列表比對工具</MenuLink>
           <MenuLink href="/normal/">Html embed</MenuLink>
           <MenuLink href="/normal/font">Font</MenuLink>
           <MenuLink href="/normal/unicode">Unicode</MenuLink>
