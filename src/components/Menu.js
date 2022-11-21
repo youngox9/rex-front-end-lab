@@ -87,7 +87,7 @@ export default function Layout(props) {
           <MenuLink href="/normal/unicode">Unicode</MenuLink>
           <MenuLink href="/normal/cssVariables">CSS Variables</MenuLink>
           <MenuLink href="/normal/portalTest">Portal Test</MenuLink>
-          <MenuLink href="/normal/websiteMaker">Website Maker</MenuLink>
+          {/* <MenuLink href="/normal/websiteMaker">Website Maker</MenuLink> */}
         </MenuItem>
         <MenuItem title="Google Analytics" href="/tracking">
           <MenuLink href="/tracking">GTAG (GA4)</MenuLink>
